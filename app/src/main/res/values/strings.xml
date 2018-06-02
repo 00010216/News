@@ -3,4 +3,13 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="log_in">Log In</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="news">News</string>
+    <string name="league_of_legends">League of Legends</string>
+    <string name="games">Games</string>
+    <string name="dota">Dota</string>
+    <string name="cs_go">CS GO</string>
+    <string name="settings">Settings</string>
+    <string name="favorites">Favorites</string>
 </resources>
