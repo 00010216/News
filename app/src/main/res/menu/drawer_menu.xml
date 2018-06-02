@@ -1,25 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        android:id="@+id/root_group">
         <item
             android:id="@+id/item1"
-            android:icon="@drawable/ic_store_black_24dp"
-            android:title="@string/about" />
+            android:title="@string/news" />
         <item
-            android:id="@+id/item2"
-            android:icon="@drawable/ic_lunch_black_24dp"
-            android:title="@string/lunch" />
+            android:id="@+id/games"
+            android:title="@string/games" >
+            <menu
+                android:id="@+id/games_menu">
+                <group
+                    android:id="@+id/games_group"
+                    android:checkableBehavior="single">
+
+                    <item
+                        android:id="@+id/item3"
+                        android:icon="@drawable/ic_videogame_asset_white_24dp"
+                        android:title="@string/league_of_legends" />
+                    <item
+                        android:id="@+id/item4"
+                        android:icon="@drawable/ic_videogame_asset_white_24dp"
+                        android:title="@string/dota" />
+                    <item
+                        android:id="@+id/item5"
+                        android:icon="@drawable/ic_videogame_asset_white_24dp"
+                        android:title="@string/cs_go" />
+                </group>
+            </menu>
+        </item>
+    </group>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/item3"
-            android:icon="@drawable/ic_dinner_black_24dp"
-            android:title="@string/dinner" />
+            android:id="@+id/item6"
+            android:icon="@drawable/ic_settings_white_24dp"
+            android:title="@string/settings" />
         <item
-            android:id="@+id/item4"
-            android:icon="@drawable/ic_free_breakfast_black_24dp"
-            android:title="@string/breakfast" />
-        <item
-            android:id="@+id/item5"
-            android:icon="@drawable/ic_today_black_24dp"
-            android:title="@string/offers" />
+            android:id="@+id/item7"
+            android:icon="@drawable/ic_grade_white_24dp"
+            android:title="@string/favorites" />
+
     </group>
 </menu>
