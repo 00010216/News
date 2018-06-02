@@ -1,4 +1,4 @@
-package com.example.kcruz.gamenews;
+package com.example.kcruz.gamenews.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

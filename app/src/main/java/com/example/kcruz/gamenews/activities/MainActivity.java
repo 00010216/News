@@ -1,4 +1,4 @@
-package com.example.kcruz.gamenews;
+package com.example.kcruz.gamenews.activities;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.kcruz.gamenews.R;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
