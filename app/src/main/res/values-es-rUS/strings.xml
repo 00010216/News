@@ -4,4 +4,11 @@
     <string name="username">Nombre de Usuario</string>
     <string name="password">Contraseña</string>
     <string name="log_in">Entrar</string>
+    <string name="news">Noticias</string>
+    <string name="league_of_legends">League of Legends</string>
+    <string name="games">Juegos</string>
+    <string name="dota">Dota</string>
+    <string name="cs_go">CS GO</string>
+    <string name="settings">Ajustes</string>
+    <string name="favorites">Favoritos</string>
 </resources>
