@@ -24,6 +24,5 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    <!--<include layout="@layout/fragment_information_view" />-->
 
 </android.support.design.widget.CoordinatorLayout>
