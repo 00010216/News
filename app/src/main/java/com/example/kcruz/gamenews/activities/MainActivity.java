@@ -1,6 +1,7 @@
 package com.example.kcruz.gamenews.activities;
 
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -13,15 +14,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.kcruz.gamenews.R;
+import com.example.kcruz.gamenews.fragments.TabFragment;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
+    private TabFragment tabFragment;
+    private Fragment contentFragment;
+    private FragmentManager fragmentManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().setElevation(0);
 
         drawer = findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -29,10 +36,17 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        final NavigationView navigationView = findViewById(R.id.navigationView);
 
-        NavigationView navigationView = findViewById(R.id.navigationView);
+        /*if(savedInstanceState != null) {
+            if (fragmentManager.findFragmentByTag(TabFragment.ARG_ITEM_ID) != null) {
+                tabFragment = (TabFragment) fragmentManager.findFragmentByTag(TabFragment.ARG_ITEM_ID);
+                contentFragment = tabFragment;
+            }
+        }*/
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
 
@@ -42,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
 
                 switch(item.getItemId()){
 
+                    case R.id.game_league_of_legends:
+                        startFragment(R.string.league_of_legends);
+                        break;
+                    case R.id.game_dota:
+                        startFragment(R.string.dota);
+                        break;
+                    case  R.id.game_cs_go:
+                        startFragment(R.string.cs_go);
+                        break;
                 }
 
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -51,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void setTitle(int resource){
+        getSupportActionBar().setTitle(getResources().getString(resource));
+    }
+
+
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -58,6 +86,16 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+    //Crea el fragment con los tabs y el respectivo titulo del juego en el action bar
+    public void startFragment(int title){
+        TabFragment frag = new TabFragment();
+        setTitle(title);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.replace(R.id.frameLayout, frag);
+        fragmentTransaction.commit();
     }
 
     @Override
