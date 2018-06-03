@@ -3,7 +3,7 @@
     <group android:checkableBehavior="single"
         android:id="@+id/root_group">
         <item
-            android:id="@+id/item1"
+            android:id="@+id/news"
             android:title="@string/news" />
         <item
             android:id="@+id/games"
@@ -15,15 +15,15 @@
                     android:checkableBehavior="single">
 
                     <item
-                        android:id="@+id/item3"
+                        android:id="@+id/game_league_of_legends"
                         android:icon="@drawable/ic_videogame_asset_white_24dp"
                         android:title="@string/league_of_legends" />
                     <item
-                        android:id="@+id/item4"
+                        android:id="@+id/game_dota"
                         android:icon="@drawable/ic_videogame_asset_white_24dp"
                         android:title="@string/dota" />
                     <item
-                        android:id="@+id/item5"
+                        android:id="@+id/game_cs_go"
                         android:icon="@drawable/ic_videogame_asset_white_24dp"
                         android:title="@string/cs_go" />
                 </group>
@@ -34,11 +34,11 @@
         android:id="@+id/menu_bottom"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/item6"
+            android:id="@+id/settings"
             android:icon="@drawable/ic_settings_white_24dp"
             android:title="@string/settings" />
         <item
-            android:id="@+id/item7"
+            android:id="@+id/favorites"
             android:icon="@drawable/ic_grade_white_24dp"
             android:title="@string/favorites" />
 
