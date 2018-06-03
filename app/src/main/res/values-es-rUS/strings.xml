@@ -4,6 +4,8 @@
     <string name="username">Nombre de Usuario</string>
     <string name="password">Contraseña</string>
     <string name="log_in">Entrar</string>
+
+    <!---NavigationDrawer-->
     <string name="news">Noticias</string>
     <string name="league_of_legends">League of Legends</string>
     <string name="games">Juegos</string>
@@ -11,4 +13,9 @@
     <string name="cs_go">CS GO</string>
     <string name="settings">Ajustes</string>
     <string name="favorites">Favoritos</string>
+
+    <!--Tabs-->
+    <string name="about">Acerca de</string>
+    <string name="top_players">Mejores jugadores</string>
+    <string name="images">Imágenes</string>
 </resources>
