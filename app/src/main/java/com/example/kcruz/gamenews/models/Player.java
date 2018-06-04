@@ -1,25 +1,29 @@
 package com.example.kcruz.gamenews.models;
 
-public class TopPlayer {
-    private int image;
+public class Player {
+    private int _id;
     private String name;
-    private String subtitle;
+    private String biography;
+    private String avatar; //url de foto
+    private String game;
 
-    public TopPlayer() {
+    public Player() {
     }
 
-    public TopPlayer(int image, String name, String subtitle) {
-        this.image = image;
+    public Player(int _id, String name, String biography, String avatar, String game) {
+        this._id = _id;
         this.name = name;
-        this.subtitle = subtitle;
+        this.biography = biography;
+        this.avatar = avatar;
+        this.game = game;
     }
 
-    public int getImage() {
-        return image;
+    public int get_id() {
+        return _id;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void set_id(int _id) {
+        this._id = _id;
     }
 
     public String getName() {
@@ -30,11 +34,27 @@ public class TopPlayer {
         this.name = name;
     }
 
-    public String getSubtitle() {
-        return subtitle;
+    public String getBiography() {
+        return biography;
     }
 
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getGame() {
+        return game;
+    }
+
+    public void setGame(String game) {
+        this.game = game;
     }
 }
