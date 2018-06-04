@@ -20,4 +20,8 @@
     <string name="top_players">Top Players</string>
     <string name="images">Images</string>
 
+    <!--String de prueba para la vista de topplayers-->
+    <string name="top_player_name">Top player name</string>
+    <string name="subtitle">subtitle</string>
+
 </resources>
