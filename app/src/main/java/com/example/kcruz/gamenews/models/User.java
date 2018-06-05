@@ -3,6 +3,7 @@ package com.example.kcruz.gamenews.models;
 import java.util.List;
 
 public class User {
+
     private int _id;
     private String user;
     private String password;
