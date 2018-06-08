@@ -24,4 +24,10 @@
     <string name="top_player_name">Top player name</string>
     <string name="subtitle">subtitle</string>
 
+    <!--Log in error messages-->
+    <string name="not_enough_digits">The username must have 8 digits</string>
+    <string name="cannot_be_zero">The sixth digit can not be zero. Try with another number.</string>
+    <string name="wrong_last_two_digits">The last two digits are incorrect. Try again</string>
+    <string name="log_out">Log Out</string>
+
 </resources>
