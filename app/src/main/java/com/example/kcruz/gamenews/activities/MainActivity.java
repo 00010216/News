@@ -1,5 +1,6 @@
 package com.example.kcruz.gamenews.activities;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 
 import com.example.kcruz.gamenews.R;
 import com.example.kcruz.gamenews.fragments.TabFragment;
+import com.example.kcruz.gamenews.utils.GameNewsSharedPreferences;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
@@ -55,7 +57,10 @@ public class MainActivity extends AppCompatActivity {
                 drawer.closeDrawers();
 
                 switch(item.getItemId()){
-
+                    case R.id.logout:
+                        GameNewsSharedPreferences.logOut();
+                        startLogInActivity();
+                        finish();
                     case R.id.game_league_of_legends:
                         startFragment(R.string.league_of_legends);
                         break;
@@ -118,6 +123,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startLogInActivity(){
+        //abre actividad que contiene el drawer y el menu de noticias y juegos
+        Intent intent = new Intent(this,LogInActivity.class);
+        startActivity(intent);
     }
 
 }

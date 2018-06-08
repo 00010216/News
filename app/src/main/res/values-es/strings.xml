@@ -18,4 +18,10 @@
     <string name="about">Acerca de</string>
     <string name="top_players">Mejores jugadores</string>
     <string name="images">Imágenes</string>
+
+    <!--Log in error messages-->
+    <string name="not_enough_digits">El nombre de usuario debe tener 8 digitos</string>
+    <string name="cannot_be_zero">El sexto digito no puede ser cero. Intenta otro número.</string>
+    <string name="wrong_last_two_digits">Los últimos dos digitos son incorrectos. Vuelve a intentarlo.</string>
+    <string name="log_out">Cerrar Sesión</string>
 </resources>
