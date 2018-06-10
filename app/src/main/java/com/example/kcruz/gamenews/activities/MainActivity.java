@@ -15,12 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.kcruz.gamenews.R;
+import com.example.kcruz.gamenews.fragments.NewsFragment;
 import com.example.kcruz.gamenews.fragments.TabFragment;
+import com.example.kcruz.gamenews.models.News;
 import com.example.kcruz.gamenews.utils.GameNewsSharedPreferences;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
-    private TabFragment tabFragment;
+    private TabFragment frag;
     private Fragment contentFragment;
     private FragmentManager fragmentManager;
 
@@ -57,18 +59,25 @@ public class MainActivity extends AppCompatActivity {
                 drawer.closeDrawers();
 
                 switch(item.getItemId()){
+                    case R.id.news:
+                        NewsFragment news = new NewsFragment();
+                        startFragment(R.string.news, news);
+                        break;
                     case R.id.logout:
                         GameNewsSharedPreferences.logOut();
                         startLogInActivity();
                         finish();
                     case R.id.game_league_of_legends:
-                        startFragment(R.string.league_of_legends);
+                        frag = new TabFragment();
+                        startFragment(R.string.league_of_legends, frag);
                         break;
                     case R.id.game_dota:
-                        startFragment(R.string.dota);
+                        frag = new TabFragment();
+                        startFragment(R.string.dota, frag);
                         break;
                     case  R.id.game_cs_go:
-                        startFragment(R.string.cs_go);
+                        frag = new TabFragment();
+                        startFragment(R.string.cs_go, frag);
                         break;
                 }
 
@@ -93,8 +102,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     //Crea el fragment con los tabs y el respectivo titulo del juego en el action bar
-    public void startFragment(int title){
-        TabFragment frag = new TabFragment();
+    public void startFragment(int title, Fragment frag){
         setTitle(title);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
