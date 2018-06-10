@@ -16,7 +16,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="125dp">
+            android:layout_height="130dp">
 
             <ImageView
                 android:id="@+id/img_news"
@@ -64,11 +64,10 @@
             <TextView
                 android:id="@+id/news_description"
                 android:layout_width="match_parent"
-                android:layout_height="90dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginBottom="4dp"
-                android:gravity="center_vertical"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:text="Text"/>
 
         </LinearLayout>
