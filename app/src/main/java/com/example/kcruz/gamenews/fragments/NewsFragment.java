@@ -53,7 +53,7 @@ public class NewsFragment extends Fragment {
             public int getSpanSize(int position) {
 
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    if (position == 1 || position == 4 || position == 2) {
+                    if (position == 1 || position == 2) {
                         return 3; // los items 3 y 4 ocupan 1 espacio
                     }else {
                         return 2; // otros items ocupan 2 espacios
