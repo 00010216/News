@@ -7,10 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardUseCompatPadding="true"
-    android:elevation="7dp"
+    card_view:cardElevation="2dp"
     card_view:cardCornerRadius="4dp">
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:orientation="horizontal">
@@ -85,6 +85,71 @@
             </RelativeLayout>
 
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout>-->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_news"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop"
+            android:src="@drawable/grey"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintEnd_toStartOf="@id/news_title"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/news_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingHorizontal="8dp"
+            android:text="Text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toEndOf="@id/img_news"
+            />
+        <TextView
+            android:id="@+id/news_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingStart="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="8dp"
+            android:paddingEnd="8dp"
+            android:text="Text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            card_view:layout_constraintStart_toStartOf="@id/news_title"
+            card_view:layout_constraintEnd_toEndOf="@id/news_title"
+            card_view:layout_constraintTop_toBottomOf="@id/news_title"
+            />
+        <ImageView
+            android:id="@+id/img_fav"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_star_border_black_24dp"
+            android:layout_alignParentRight="true"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/news_description"
+            />
+
+
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>
