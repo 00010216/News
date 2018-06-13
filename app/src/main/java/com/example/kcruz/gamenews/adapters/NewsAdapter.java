@@ -39,9 +39,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public void onBindViewHolder(NewsViewHolder holder, int position) {
         holder.imageNews.setImageResource(news.get(position).getImage());
-        fixText(holder,position);
-        //holder.title.setText(news.get(position).getTitle());
-        //holder.description.setText(news.get(position).getDescription());
+        //fixText(holder,position);
+        holder.title.setText(news.get(position).getTitle());
+        holder.description.setText(news.get(position).getDescription());
     }
 
     @Override
@@ -61,15 +61,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         }
     }
 
-    public void fixText( NewsViewHolder holder, int position){
+    /*public void fixText( NewsViewHolder holder, int position){
         //Se verifica el largo del titulo y apartir de ese valor segun la orientacion del dispositivo se corta la cadena de descripcion o el titulo
         String text = news.get(position).getTitle();
-        String fixedDescription = news.get(position).getDescription().substring(0,96) + "..."; //se corta descripcion  a solo dos lineas
+        String fixedDescription = news.get(position).getDescription().substring(1,96) + "..."; //se corta descripcion  a solo dos lineas
         int size = text.length();
 
         if (resources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            holder.title.setText(news.get(position).getTitle());
-            holder.description.setText(news.get(position).getDescription());
+
         }else {
             if (position == 0 || position % 3 == 0) {
                 if (size <= 40) {
@@ -83,7 +82,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             } else if (position % 2 == 0) {
                 if (size <= 20) {
                     holder.title.setText(news.get(position).getTitle());
-                    holder.description.setText(news.get(position).getDescription().substring(0,55) + "...");
+                    holder.description.setText(news.get(position).getDescription().substring(1,55) + "...");
                     //return 3;
                 } else {
                     holder.title.setText(news.get(position).getTitle());
@@ -92,18 +91,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             } else {
                 if (size > 20) {
                     //holder.title.setText(text);
-                    holder.title.setText(news.get(position).getTitle().substring(0,20) + "...");
+                    holder.title.setText(news.get(position).getTitle().substring(1,20) + "...");
                     holder.description.setText(fixedDescription);
                     //return 2; //caso especifico para lineas mayor a 20
                 }else if ( size == 20 || size >= 13){
                     holder.title.setText(news.get(position).getTitle());
-                    holder.description.setText(news.get(position).getDescription().substring(0,17) + "...");
+                    holder.description.setText(news.get(position).getDescription().substring(1,17) + "...");
                 } else {
                     holder.title.setText(news.get(position).getTitle());
-                    holder.description.setText(news.get(position).getDescription().substring(0,30) + "...");
+                    holder.description.setText(news.get(position).getDescription().substring(1,30) + "...");
                 }
             }
         }
-    }
+    }*/
 
 }
