@@ -20,4 +20,7 @@ public interface GameNewsAPI {
     @POST("/login")
     Call<String> token(@Field("user") String user, @Field("password") String password);
 
+    @GET("/news/type/list")
+    Call<String[]> getGames();
+
 }
