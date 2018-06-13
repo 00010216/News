@@ -31,7 +31,6 @@ public class NewsFragment extends Fragment {
     Activity activity;
     NewsAdapter newsAdapter;
     RecyclerView newsView;
-    GridLayoutManager manager;
     List<News> news;
 
     public NewsFragment() {
@@ -39,7 +38,7 @@ public class NewsFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         //inflamos vista que contiene el recycler
         View view = inflater.inflate(R.layout.fragment_news,container,false);
 
@@ -47,47 +46,59 @@ public class NewsFragment extends Fragment {
         newsView = (RecyclerView) view.findViewById(R.id.news_list);
         newsView.setHasFixedSize(true);
 
-        manager = new GridLayoutManager(container.getContext(),5);
-        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            GridLayoutManager managerLand = new GridLayoutManager(container.getContext(),4);
+            managerLand.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
 
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    if (position == 1 || position == 2) {
-                        return 3; // los items 3 y 4 ocupan 1 espacio
-                    }else {
-                        return 2; // otros items ocupan 2 espacios
-                    }
-
-                } else {
-                    if (position == 2) {
-                        return 5; // los items 3 y 4 ocupan 1 espacio
-                    } else if (position == 1 || position == 3) {
-                        return 3;
-                    } // los items 1 y 2 ocupan 3 espacio
-                    else {
-                        return 2; // otros items ocupan 2 espacios
+                    if( position == 0 || position%3 == 0){
+                        return 4;
+                    }else{
+                        return 2;
                     }
                 }
-            }
-        });
-        newsView.setLayoutManager(manager);
+            });
+            setGridLayout(managerLand);
+        }else {
+            GridLayoutManager managerPort = new GridLayoutManager(container.getContext(),5);
+            managerPort.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
 
+                    if( position == 0 || position%3 == 0){
+                        return 5;
+                    } else if(position%2 == 0){
+                        return 3;
+                    }else{
+                        return 2;
+                    }
+                }
+            });
+
+            setGridLayout(managerPort);
+        }
         //llamar funcion de arreglo con contenido
         setNews();
 
-        newsAdapter = new NewsAdapter(activity, news);
+        newsAdapter = new NewsAdapter(activity, news, getResources());
         newsView.setAdapter(newsAdapter);
+
         return view;
     }
 
-    private void setNews() {
 
+    private void setNews() {
         News news1 = new News(R.drawable.grey,"News 1", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi");
-        News news2 = new News(R.drawable.grey,"News 1", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi");
-        News news3 = new News(R.drawable.grey,"News 1", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident");
-        News news4 = new News(R.drawable.grey,"News 1", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident  similique sunt in culpa qui officia deserunt mollitia animi");
+        News news2 = new News(R.drawable.grey,"Falling stars alone together forever alone alive", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi");
+        News news3 = new News(R.drawable.grey,"Incredible things", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident");
+        News news4 = new News(R.drawable.grey,"Falling stars alone together forever alone alive", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident  similique sunt in culpa qui officia deserunt mollitia animi");
         News news5 = new News(R.drawable.grey,"News 1", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident");
+        News news6 = new News(R.drawable.grey,"Falling stars", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident");
+        News news7 = new News(R.drawable.grey,"News 1", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident");
+        News news8 = new News(R.drawable.grey,"News 1", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident");
+        News news9 = new News(R.drawable.grey,"News 1", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident");
+        News news10 = new News(R.drawable.grey,"News 1", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident");
 
         news = new ArrayList<>();
         news.add(news1);
@@ -95,6 +106,15 @@ public class NewsFragment extends Fragment {
         news.add(news3);
         news.add(news4);
         news.add(news5);
+        news.add(news6);
+        news.add(news7);
+        news.add(news8);
+        news.add(news9);
+        news.add(news10);
+    }
+
+    public void setGridLayout(GridLayoutManager manager){
+        newsView.setLayoutManager(manager);
     }
 
 }
