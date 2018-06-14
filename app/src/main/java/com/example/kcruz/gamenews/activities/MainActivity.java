@@ -1,6 +1,7 @@
 package com.example.kcruz.gamenews.activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,20 +12,27 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 
+import com.example.kcruz.gamenews.API.GamesAPIUtils;
 import com.example.kcruz.gamenews.R;
 import com.example.kcruz.gamenews.fragments.NewsFragment;
 import com.example.kcruz.gamenews.fragments.TabFragment;
-import com.example.kcruz.gamenews.models.News;
 import com.example.kcruz.gamenews.utils.GameNewsSharedPreferences;
 
-public class MainActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout drawer;
     private TabFragment frag;
     private Fragment contentFragment;
     private FragmentManager fragmentManager;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setElevation(0);
 
         drawer = findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        final NavigationView navigationView = findViewById(R.id.navigationView);
+        navigationView = findViewById(R.id.navigationView);
 
         /*if(savedInstanceState != null) {
             if (fragmentManager.findFragmentByTag(TabFragment.ARG_ITEM_ID) != null) {
@@ -48,42 +55,33 @@ public class MainActivity extends AppCompatActivity {
                 contentFragment = tabFragment;
             }
         }*/
+        navigationView.setNavigationItemSelectedListener(this);
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        GameNewsSharedPreferences.initiate(this);
+        if(GameNewsSharedPreferences.hasGames())
+            setGamesOptions(GameNewsSharedPreferences.getGames()); //obtiene el arreglo de string con los juegos
+        requestGames();
+
+    }
+
+    private void requestGames() {
+        Call<String[]> games = GamesAPIUtils.getApiInstanceWithAuthorization().getGames();
+        games.enqueue(new Callback<String[]>() {
+            @Override
+            public void onResponse(Call<String[]> call, Response<String[]> response) {
+                if(response.isSuccessful() && response.body().length > 0){
+                    Log.d("games","Response:" + response.body());
+                    setGamesOptions(response.body()); //el response body devuelve el arreglo de strings
+                    GameNewsSharedPreferences.getGames();
+                } else {
+                    Log.d("games", "onResponse: code "+response.code());
+                    Log.d("games", "onResponse: message -"+response.message());
+                }
+            }
 
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-
-                item.setChecked(true);
-
-                drawer.closeDrawers();
-
-                switch(item.getItemId()){
-                    case R.id.news:
-                        NewsFragment news = new NewsFragment();
-                        startFragment(R.string.news, news);
-                        break;
-                    case R.id.logout:
-                        GameNewsSharedPreferences.logOut();
-                        startLogInActivity();
-                        finish();
-                    case R.id.game_league_of_legends:
-                        frag = new TabFragment();
-                        startFragment(R.string.league_of_legends, frag);
-                        break;
-                    case R.id.game_dota:
-                        frag = new TabFragment();
-                        startFragment(R.string.dota, frag);
-                        break;
-                    case  R.id.game_cs_go:
-                        frag = new TabFragment();
-                        startFragment(R.string.cs_go, frag);
-                        break;
-                }
-
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
-                drawer.closeDrawer(GravityCompat.START);
-                return true;
+            public void onFailure(Call<String[]> call, Throwable t) {
+                Log.d("games","onFailure:" + t.getMessage());
             }
         });
     }
@@ -133,10 +131,45 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void setGamesOptions(String[] games){
+        int itemId = 500;
+        MenuItem item = navigationView.getMenu().findItem(R.id.games);
+        SubMenu gamesOptions = item.getSubMenu();
+        gamesOptions.clear();
+
+        for(String game: games){
+            Log.d("individual game", "setGamesOptions: game " + game);
+            gamesOptions.add(0,itemId,itemId,game).setIcon(R.drawable.ic_videogame_asset_white_24dp).setCheckable(true);
+            itemId ++;
+        }
+        gamesOptions.setGroupCheckable(0, true,true);
+    }
+
     public void startLogInActivity(){
         //abre actividad que contiene el drawer y el menu de noticias y juegos
         Intent intent = new Intent(this,LogInActivity.class);
         startActivity(intent);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        item.setChecked(true);
+
+        drawer.closeDrawers();
+
+        switch(item.getItemId()){
+            case R.id.news:
+                NewsFragment news = new NewsFragment();
+                startFragment(R.string.news, news);
+                break;
+            case R.id.logout:
+                GameNewsSharedPreferences.logOut();
+                startLogInActivity();
+                finish();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }
