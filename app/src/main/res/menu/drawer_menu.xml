@@ -8,26 +8,7 @@
         <item
             android:id="@+id/games"
             android:title="@string/games" >
-            <menu
-                android:id="@+id/games_menu">
-                <group
-                    android:id="@+id/games_group"
-                    android:checkableBehavior="single">
-
-                    <item
-                        android:id="@+id/game_league_of_legends"
-                        android:icon="@drawable/ic_videogame_asset_white_24dp"
-                        android:title="@string/league_of_legends" />
-                    <item
-                        android:id="@+id/game_dota"
-                        android:icon="@drawable/ic_videogame_asset_white_24dp"
-                        android:title="@string/dota" />
-                    <item
-                        android:id="@+id/game_cs_go"
-                        android:icon="@drawable/ic_videogame_asset_white_24dp"
-                        android:title="@string/cs_go" />
-                </group>
-            </menu>
+            <menu/>
         </item>
     </group>
     <group
