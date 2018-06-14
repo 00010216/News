@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.kcruz.gamenews.API.GameNewsAPI;
 import com.example.kcruz.gamenews.API.Login;
-import com.example.kcruz.gamenews.API.TokenDeserializer;
 import com.example.kcruz.gamenews.R;
 import com.example.kcruz.gamenews.utils.GameNewsSharedPreferences;
 import com.google.gson.Gson;
@@ -65,41 +64,8 @@ public class LogInActivity extends AppCompatActivity {
         }*/
     }
 
-    /*public boolean fieldsCheckUp(){
-        String username = edtUsername.getText().toString().trim();
-        String password = edtPassword.getText().toString().trim();
-        int error = validateCarnet(username);
-        switch(error) {
-            case 1:
-                if (username.equals(password))
-                    return true;
-                else {
-                    Toast.makeText(this, "Password incorrect. Try again", Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-            case 2:
-                Toast.makeText(this, R.string.wrong_last_two_digits, Toast.LENGTH_SHORT).show();
-                return false;
-            case 3:
-                Toast.makeText(this, R.string.cannot_be_zero, Toast.LENGTH_SHORT).show();
-                return false;
-        }
-        /*if(validateCarnet(username)){
-            if(username.equals(password))
-                return true;
-            else {
-                Toast.makeText(this, "Password incorrect. Try again", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }
-        if(error == 4)
-            Toast.makeText(this, "Username or password is incorrect.Try again.", Toast.LENGTH_SHORT).show();
-            return false;
-    }*/
-
     public void initiateLogIn(){
-        Gson gson = new GsonBuilder().registerTypeAdapter(String.class, new TokenDeserializer()).create();
-        Retrofit.Builder retroBuilder = new Retrofit.Builder().baseUrl(GameNewsAPI.ENDPOINT).addConverterFactory(GsonConverterFactory.create(gson));
+        Retrofit.Builder retroBuilder = new Retrofit.Builder().baseUrl(GameNewsAPI.ENDPOINT).addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = retroBuilder.build();//ya esta listo para trabajar con el
         GameNewsAPI gameNewsAPI = retrofit.create(GameNewsAPI.class);
         //recibe como parametro el texto de los edit text
@@ -108,17 +74,6 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
                 //responde pero no garantiza que estara completamente bueno
-               /* String[] val = response.body().split(":");
-                if(response.isSuccessful() && !response.body().equals("")){
-                    if (val[0].equals("token")){
-                        GameNewsSharedPreferences.initiate(LogInActivity.this);
-                        GameNewsSharedPreferences.setToken(val[1]);
-                        startMainActivity();
-                        finish();
-                    } else Log.d("xd", "onResponse:"+val[1]);
-                }else{
-                    //Toast.makeText(LogInActivity.this, val[1], Toast.LENGTH_SHORT).show();
-                    Log.d("fail", "onResponse:Response vacio ");}*/
                 if (response.isSuccessful()) {
                     GameNewsSharedPreferences.initiate(LogInActivity.this);
                     GameNewsSharedPreferences.setToken(response.body().getToken());
@@ -149,6 +104,7 @@ public class LogInActivity extends AppCompatActivity {
                     Toast.makeText(LogInActivity.this, "Timed out.", Toast.LENGTH_SHORT).show();
                 }
                 Log.d("fail", "onFailure:NO funciona ");
+                t.printStackTrace();
             }
         });
     }
@@ -176,5 +132,37 @@ public class LogInActivity extends AppCompatActivity {
         }
         //Toast.makeText(this, R.string.not_enough_digits, Toast.LENGTH_SHORT).show();
         return 4;
+    }*/
+
+     /*public boolean fieldsCheckUp(){
+        String username = edtUsername.getText().toString().trim();
+        String password = edtPassword.getText().toString().trim();
+        int error = validateCarnet(username);
+        switch(error) {
+            case 1:
+                if (username.equals(password))
+                    return true;
+                else {
+                    Toast.makeText(this, "Password incorrect. Try again", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            case 2:
+                Toast.makeText(this, R.string.wrong_last_two_digits, Toast.LENGTH_SHORT).show();
+                return false;
+            case 3:
+                Toast.makeText(this, R.string.cannot_be_zero, Toast.LENGTH_SHORT).show();
+                return false;
+        }
+        /*if(validateCarnet(username)){
+            if(username.equals(password))
+                return true;
+            else {
+                Toast.makeText(this, "Password incorrect. Try again", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        if(error == 4)
+            Toast.makeText(this, "Username or password is incorrect.Try again.", Toast.LENGTH_SHORT).show();
+            return false;
     }*/
 }
