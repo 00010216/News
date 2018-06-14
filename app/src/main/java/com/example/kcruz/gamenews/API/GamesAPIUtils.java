@@ -13,6 +13,7 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+//Instancia que maneja las peticiones a la web y recibir una respuesta
 public class GamesAPIUtils {
     //pueden ser instanciados sin necesidad de crear un objeto
     private static Retrofit retrofit;
