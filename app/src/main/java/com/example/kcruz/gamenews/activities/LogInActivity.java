@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.kcruz.gamenews.API.GameNewsAPI;
+import com.example.kcruz.gamenews.API.GamesAPIUtils;
 import com.example.kcruz.gamenews.API.Login;
 import com.example.kcruz.gamenews.R;
 import com.example.kcruz.gamenews.utils.GameNewsSharedPreferences;
@@ -65,11 +66,8 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     public void initiateLogIn(){
-        Retrofit.Builder retroBuilder = new Retrofit.Builder().baseUrl(GameNewsAPI.ENDPOINT).addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = retroBuilder.build();//ya esta listo para trabajar con el
-        GameNewsAPI gameNewsAPI = retrofit.create(GameNewsAPI.class);
         //recibe como parametro el texto de los edit text
-        Call<Login> token = gameNewsAPI.token(edtUsername.getText().toString(),edtPassword.getText().toString()); // call de debe cambiar por single
+        Call<Login> token = GamesAPIUtils.getApiInstance().token(edtUsername.getText().toString(),edtPassword.getText().toString()); // call de debe cambiar por single
         token.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
