@@ -143,7 +143,7 @@ public class LogInActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Login> call, Throwable t) {
                 // cuando revisa API y no funciona no recibe nada
                 if (t instanceof SocketTimeoutException) {
                     Toast.makeText(LogInActivity.this, "Timed out.", Toast.LENGTH_SHORT).show();
