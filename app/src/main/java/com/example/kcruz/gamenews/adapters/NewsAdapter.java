@@ -64,7 +64,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     public void fixText( NewsViewHolder holder, int position){
         //Se verifica el largo del titulo y apartir de ese valor segun la orientacion del dispositivo se corta la cadena de descripcion o el titulo
         String text = news.get(position).getTitle();
-        String fixedDescription = news.get(position).getDescription().substring(0,96) + "..."; //se corta descripcion  a solo dos lineas
+        String fixedDescription = news.get(position).getDescription().substring(0,86) + "..."; //se corta descripcion  a solo dos lineas
         int size = text.length();
 
         if (resources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
