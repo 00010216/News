@@ -12,12 +12,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.kcruz.gamenews.API.GameNewsAPI;
+import com.example.kcruz.gamenews.API.Login;
 import com.example.kcruz.gamenews.API.TokenDeserializer;
 import com.example.kcruz.gamenews.R;
 import com.example.kcruz.gamenews.utils.GameNewsSharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 import retrofit2.Call;
@@ -101,12 +103,12 @@ public class LogInActivity extends AppCompatActivity {
         Retrofit retrofit = retroBuilder.build();//ya esta listo para trabajar con el
         GameNewsAPI gameNewsAPI = retrofit.create(GameNewsAPI.class);
         //recibe como parametro el texto de los edit text
-        Call<String> token = gameNewsAPI.token(edtUsername.getText().toString(),edtPassword.getText().toString()); // call de debe cambiar por single
-        token.enqueue(new Callback<String>() {
+        Call<Login> token = gameNewsAPI.token(edtUsername.getText().toString(),edtPassword.getText().toString()); // call de debe cambiar por single
+        token.enqueue(new Callback<Login>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Login> call, Response<Login> response) {
                 //responde pero no garantiza que estara completamente bueno
-                String[] val = response.body().split(":");
+               /* String[] val = response.body().split(":");
                 if(response.isSuccessful() && !response.body().equals("")){
                     if (val[0].equals("token")){
                         GameNewsSharedPreferences.initiate(LogInActivity.this);
@@ -116,11 +118,32 @@ public class LogInActivity extends AppCompatActivity {
                     } else Log.d("xd", "onResponse:"+val[1]);
                 }else{
                     //Toast.makeText(LogInActivity.this, val[1], Toast.LENGTH_SHORT).show();
-                    Log.d("fail", "onResponse:Response vacio ");}
+                    Log.d("fail", "onResponse:Response vacio ");}*/
+                if (response.isSuccessful()) {
+                    GameNewsSharedPreferences.initiate(LogInActivity.this);
+                    GameNewsSharedPreferences.setToken(response.body().getToken());
+                    startMainActivity();
+                    finish();
+                } else {
+                    try {
+                        Gson gson = new Gson();
+                        String jsonform = response.errorBody().string();
+//                        Log.d("LoginActivity", "onResponse: " + response.errorBody().string());
+                        Log.d("LoginActivity", "onResponse: " + jsonform);
+                        Login error = gson.fromJson(jsonform, Login.class);
+//                        Log.d("LoginActivity", "onResponse: is token null" + (error.getToken() == null || error.getToken().isEmpty()));
+//                        Log.d("LoginActivity", "onResponse: is message null" + (error.getMessage() == null || error.getMessage().isEmpty()));
+//                        Log.d("LoginActivity", "onResponse: token " + error.getToken());
+//                        Log.d("LoginActivity", "onResponse: message " + error.getMessage());
+                        Toast.makeText(LogInActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        Log.d("LoginActivity", "onResponse: " + e.getMessage());
+                    }
+                }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Login> call, Throwable t) {
                 // cuando revisa API y no funciona no recibe nada
                 if (t instanceof SocketTimeoutException) {
                     Toast.makeText(LogInActivity.this, "Timed out.", Toast.LENGTH_SHORT).show();
