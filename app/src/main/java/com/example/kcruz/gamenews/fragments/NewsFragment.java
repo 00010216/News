@@ -117,4 +117,10 @@ public class NewsFragment extends Fragment {
         newsView.setLayoutManager(manager);
     }
 
+    @Override
+    public void onResume() {
+        getActivity().setTitle(R.string.news);
+        super.onResume();
+    }
+
 }
