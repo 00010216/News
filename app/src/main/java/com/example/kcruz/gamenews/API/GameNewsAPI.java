@@ -10,6 +10,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
+//maneja las rutas
 public interface GameNewsAPI {
 
     @FormUrlEncoded
