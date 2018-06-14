@@ -49,12 +49,10 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         navigationView = findViewById(R.id.navigationView);
 
-        /*if(savedInstanceState != null) {
-            if (fragmentManager.findFragmentByTag(TabFragment.ARG_ITEM_ID) != null) {
-                tabFragment = (TabFragment) fragmentManager.findFragmentByTag(TabFragment.ARG_ITEM_ID);
-                contentFragment = tabFragment;
-            }
-        }*/
+        if(savedInstanceState == null) {
+            NewsFragment news = new NewsFragment();
+            startFragment(R.string.news, news);
+        }
         navigationView.setNavigationItemSelectedListener(this);
 
         GameNewsSharedPreferences.initiate(this);
