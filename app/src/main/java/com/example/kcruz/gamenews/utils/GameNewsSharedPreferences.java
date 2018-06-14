@@ -2,6 +2,7 @@ package com.example.kcruz.gamenews.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 public class GameNewsSharedPreferences {
     private static final String SHARED_PREFS_NAME = "NEWS_APP";
@@ -13,6 +14,7 @@ public class GameNewsSharedPreferences {
 
     private static final String KEY_TOKEN = "TOKEN";
     private static final String KEY_LOGGED_IN = "LOGGED_IN";
+    private static final String KEY_GAMES = "GAMES";
 
    public static void initiate(Context context){
        //se ve si no hay algo guardado en preferences
@@ -41,6 +43,20 @@ public class GameNewsSharedPreferences {
     public static void logOut(){
        editor.clear();
        editor.commit();
+    }
+
+    public static void setGames(String games[]) {
+        String gamesList = TextUtils.join(",", games);
+        editor.putString(KEY_GAMES, gamesList);
+        editor.commit();
+    }
+
+    public static String[] getGames() {
+        return settings.getString(KEY_GAMES, "").split(",");
+    }
+
+    public static boolean hasGames() {
+        return !settings.getString(KEY_GAMES, "").isEmpty();
     }
 }
 
