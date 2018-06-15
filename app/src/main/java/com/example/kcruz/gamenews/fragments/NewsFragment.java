@@ -9,10 +9,12 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.kcruz.gamenews.API.GamesAPIUtils;
 import com.example.kcruz.gamenews.R;
 import com.example.kcruz.gamenews.adapters.ImagesAdapter;
 import com.example.kcruz.gamenews.adapters.NewsAdapter;
@@ -22,6 +24,10 @@ import com.example.kcruz.gamenews.models.News;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.res.Configuration.*;
 
@@ -81,15 +87,40 @@ public class NewsFragment extends Fragment {
         //llamar funcion de arreglo con contenido
         setNews();
 
-        newsAdapter = new NewsAdapter(activity, news, getResources());
-        newsView.setAdapter(newsAdapter);
+        /*newsAdapter = new NewsAdapter(activity, news, getResources());
+        newsView.setAdapter(newsAdapter);*/
 
         return view;
     }
 
 
     private void setNews() {
-        News news1 = new News(R.drawable.grey,"News 1", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi");
+        Call<List<News>> news = GamesAPIUtils.getApiInstanceWithAuthorization().getNews();
+        news.enqueue(new Callback<List<News>>() {
+            @Override
+            public void onResponse(Call<List<News>> call, Response<List<News>> response) {
+                //News news = new News();
+                if(response.isSuccessful()){
+                    for (int i=0;i < response.body().size();i++)
+                    {
+                        Log.d("Value of element ",  "news:" + i + String.valueOf(response.body().get(i)));
+                    }
+                    Log.d("individual news", "individual news: news " + response.body().get(1) );
+                    newsAdapter = new NewsAdapter(activity, response.body(), getResources());
+                    newsView.setAdapter(newsAdapter);
+                }else {
+                    Log.d("news", "onResponse: code "+response.code());
+                    Log.d("news", "onResponse: message -"+response.message());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<News>> call, Throwable t) {
+
+            }
+        });
+        /*News news1 = new News(R.drawable.grey,"News 1", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi");
         News news2 = new News(R.drawable.grey,"Falling stars alone together forever alone alive", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi");
         News news3 = new News(R.drawable.grey,"Incredible things", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident");
         News news4 = new News(R.drawable.grey,"Falling stars alone together forever alone alive", "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident  similique sunt in culpa qui officia deserunt mollitia animi");
@@ -110,7 +141,7 @@ public class NewsFragment extends Fragment {
         news.add(news7);
         news.add(news8);
         news.add(news9);
-        news.add(news10);
+        news.add(news10);*/
     }
 
     public void setGridLayout(GridLayoutManager manager){
