@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.kcruz.gamenews.R;
 import com.example.kcruz.gamenews.models.Image;
 import com.example.kcruz.gamenews.models.News;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -38,7 +39,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     @Override
     public void onBindViewHolder(NewsViewHolder holder, int position) {
-        holder.imageNews.setImageResource(news.get(position).getImage());
+        Picasso.with(context)
+                .load(news.get(position).getCoverImage())
+                .into(holder.imageNews);
         fixText(holder,position);
         //holder.title.setText(news.get(position).getTitle());
         //holder.description.setText(news.get(position).getDescription());
