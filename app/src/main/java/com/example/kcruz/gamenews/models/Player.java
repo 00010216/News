@@ -1,19 +1,27 @@
 package com.example.kcruz.gamenews.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity (indices = {@Index(value = {"_id"}, unique = true)})
 public class Player {
+    @PrimaryKey
     private int _id;
     private String name;
-    private String biography;
+    private String biografia;
     private String avatar; //url de foto
     private String game;
 
+    @Ignore
     public Player() {
     }
 
     public Player(int _id, String name, String biography, String avatar, String game) {
         this._id = _id;
         this.name = name;
-        this.biography = biography;
+        this.biografia = biography;
         this.avatar = avatar;
         this.game = game;
     }
@@ -35,11 +43,11 @@ public class Player {
     }
 
     public String getBiography() {
-        return biography;
+        return biografia;
     }
 
     public void setBiography(String biography) {
-        this.biography = biography;
+        this.biografia = biography;
     }
 
     public String getAvatar() {

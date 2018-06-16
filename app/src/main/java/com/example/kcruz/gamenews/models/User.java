@@ -1,14 +1,22 @@
 package com.example.kcruz.gamenews.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.List;
 
+@Entity (indices = {@Index(value = {"_id"}, unique = true)})
 public class User {
-
+    @PrimaryKey(autoGenerate = true)
     private int _id;
     private String user;
     private String password;
+    @Ignore
     private List<String> favoriteNews;
 
+    @Ignore
     public User() {
     }
 

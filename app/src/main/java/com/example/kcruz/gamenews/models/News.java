@@ -1,25 +1,76 @@
 package com.example.kcruz.gamenews.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+
+import java.util.Date;
+
+@Entity (indices = {@Index(value = {"_id"}, unique = true)})
 public class News {
-    private int image; //cambiar a string
+    @PrimaryKey(autoGenerate = true)
+    private int _id;
     private String title;
+    private String coverImage;
+    private Date create_date;
     private String description;
+    private String body;
+    private String game;
 
+    @Ignore
     public News() {
+
     }
 
-    public News(int image, String title, String description) {
-        this.image = image;
+    public News(int _id, String title, String coverImage, Date create_date, String description, String body, String game) {
+        this._id = _id;
         this.title = title;
+        this.coverImage = coverImage;
+        this.create_date = create_date;
         this.description = description;
+        this.body = body;
+        this.game = game;
     }
 
-    public int getImage() {
-        return image;
+    public int get_id() {
+        return _id;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getGame() {
+        return game;
+    }
+
+    public void setGame(String game) {
+        this.game = game;
     }
 
     public String getTitle() {
