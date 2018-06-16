@@ -24,4 +24,10 @@
     <string name="cannot_be_zero">El sexto digito no puede ser cero. Intenta otro número.</string>
     <string name="wrong_last_two_digits">Los últimos dos digitos son incorrectos. Vuelve a intentarlo.</string>
     <string name="log_out">Cerrar Sesión</string>
+
+    <!--News con null fields-->
+    <string name="change_null_title">"No titulo de noticias disponible"</string>
+    <string name="change_null_description">"No hay descripción de noticias disponible"</string>
+    <string name="change_null_body">"No hay cuerpo de noticias disponible"</string>
+    <string name="change_null_game">"No hay juego disponible"</string>
 </resources>

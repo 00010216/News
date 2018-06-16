@@ -40,8 +40,8 @@ public class NewsFragment extends Fragment {
     List<News> receiverAPI;
     List<News> setNews;
 
-    int _id, _v;
-    String title, coverImage,create_date,description,body,game;
+    int _v;
+    String _id, title, coverImage,create_date,description,body,game;
 
     public NewsFragment() {
     }

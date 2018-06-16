@@ -30,4 +30,10 @@
     <string name="wrong_last_two_digits">The last two digits are incorrect. Try again</string>
     <string name="log_out">Log Out</string>
 
+    <!--News con null fields-->
+    <string name="change_null_title">"No news title"</string>
+    <string name="change_null_description">"No news description"</string>
+    <string name="change_null_body">"No news body available"</string>
+    <string name="change_null_game">"No news game available"</string>
+
 </resources>

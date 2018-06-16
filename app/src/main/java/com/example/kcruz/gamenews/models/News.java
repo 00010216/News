@@ -3,7 +3,7 @@ package com.example.kcruz.gamenews.models;
 import java.util.Date;
 
 public class News {
-    private int _id;
+    private String _id;
     private String title;
     private String coverImage;
     private String create_date;
@@ -16,7 +16,7 @@ public class News {
 
     }
 
-    public News(int _id, String title, String coverImage, String create_date, String description, String body, String game, int _v) {
+    public News(String _id, String title, String coverImage, String create_date, String description, String body, String game, int _v) {
         this._id = _id;
         this.title = title;
         this.coverImage = coverImage;
@@ -34,11 +34,12 @@ public class News {
     public void set_v(int _v) {
         this._v = _v;
     }
-    public int get_id() {
+
+    public String get_id() {
         return _id;
     }
 
-    public void set_id(int _id) {
+    public void set_id(String _id) {
         this._id = _id;
     }
 
