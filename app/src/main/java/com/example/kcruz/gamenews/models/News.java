@@ -6,16 +6,17 @@ public class News {
     private int _id;
     private String title;
     private String coverImage;
-    private Date create_date;
+    private String create_date;
     private String description;
     private String body;
     private String game;
+    private int _v;
 
     public News() {
 
     }
 
-    public News(int _id, String title, String coverImage, Date create_date, String description, String body, String game) {
+    public News(int _id, String title, String coverImage, String create_date, String description, String body, String game, int _v) {
         this._id = _id;
         this.title = title;
         this.coverImage = coverImage;
@@ -23,8 +24,16 @@ public class News {
         this.description = description;
         this.body = body;
         this.game = game;
+        this._v = _v;
     }
 
+    public int get_v() {
+        return _v;
+    }
+
+    public void set_v(int _v) {
+        this._v = _v;
+    }
     public int get_id() {
         return _id;
     }
@@ -41,11 +50,11 @@ public class News {
         this.coverImage = coverImage;
     }
 
-    public Date getCreate_date() {
+    public String getCreate_date() {
         return create_date;
     }
 
-    public void setCreate_date(Date create_date) {
+    public void setCreate_date(String create_date) {
         this.create_date = create_date;
     }
 
