@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         navigationView = findViewById(R.id.navigationView);
 
         if(savedInstanceState == null) {
+            System.out.println("Entra la onsavedinstance");
             NewsFragment news = new NewsFragment();
             startFragment(R.string.news, news);
         }
@@ -157,6 +158,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         switch(item.getItemId()){
             case R.id.news:
+                System.out.println("Entro a fragmento");
                 NewsFragment news = new NewsFragment();
                 startFragment(R.string.news, news);
                 break;
