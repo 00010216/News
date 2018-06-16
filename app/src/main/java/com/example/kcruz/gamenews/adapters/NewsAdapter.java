@@ -42,9 +42,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         Picasso.with(context)
                 .load(news.get(position).getCoverImage())
                 .into(holder.imageNews);
-        fixText(holder,position);
-        //holder.title.setText(news.get(position).getTitle());
-        //holder.description.setText(news.get(position).getDescription());
+        //holder.imageNews.setImageResource(news.get(position).getCoverImage());
+        //fixText(holder,position);
+        holder.title.setText(news.get(position).getTitle());
+        holder.description.setText(news.get(position).getDescription());
     }
 
     @Override
