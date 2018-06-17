@@ -24,7 +24,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     Resources resources;
 
     public interface NewsAdapterClickListener{
-        public void onNewsClick(View v, int position);
+        public void onNewsClick(String id);
         public void onFavoriteClick(String id, boolean value, ImageView tb);
     }
 
@@ -59,7 +59,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onNewsClick(v, position);
+                mListener.onNewsClick(news.get(position).get_id());
             }
         });
         holder.title.setText(news.get(position).getTitle());

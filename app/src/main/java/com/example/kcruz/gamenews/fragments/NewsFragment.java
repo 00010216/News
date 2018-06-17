@@ -3,6 +3,7 @@ package com.example.kcruz.gamenews.fragments;
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.example.kcruz.gamenews.API.GamesAPIUtils;
 import com.example.kcruz.gamenews.API.User;
 import com.example.kcruz.gamenews.R;
 import com.example.kcruz.gamenews.activities.MainActivity;
+import com.example.kcruz.gamenews.activities.NewsDetailActivity;
 import com.example.kcruz.gamenews.adapters.NewsAdapter;
 import com.example.kcruz.gamenews.database.NewsRepository;
 import com.example.kcruz.gamenews.database.models.News;
@@ -169,7 +171,12 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterCli
     }
 
     @Override
-    public void onNewsClick(View v, int position) {
+    public void onNewsClick(String id) {
+
+        Intent newIntent = new Intent(getActivity().getApplicationContext(), NewsDetailActivity.class);
+        newIntent.setAction(Intent.ACTION_SEND);
+        newIntent.putExtra("KEY",id);
+        startActivity(newIntent);
 
     }
 
