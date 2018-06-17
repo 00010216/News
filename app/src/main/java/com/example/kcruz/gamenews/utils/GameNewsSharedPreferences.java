@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.example.kcruz.gamenews.API.User;
+
 public class GameNewsSharedPreferences {
     private static final String SHARED_PREFS_NAME = "NEWS_APP";
 
@@ -15,6 +17,8 @@ public class GameNewsSharedPreferences {
     private static final String KEY_TOKEN = "TOKEN";
     private static final String KEY_LOGGED_IN = "LOGGED_IN";
     private static final String KEY_GAMES = "GAMES";
+    private static final String KEY_USER_ID = "KEY_USER_ID";
+    private static final String KEY_USERNAME = "KEY_USERNAME";
 
    public static void initiate(Context context){
        //se ve si no hay algo guardado en preferences
@@ -57,6 +61,20 @@ public class GameNewsSharedPreferences {
 
     public static boolean hasGames() {
         return !settings.getString(KEY_GAMES, "").isEmpty();
+    }
+
+    public static void setUserDetail(User user) {
+        editor.putString(KEY_USER_ID, user.get_id());
+        editor.putString(KEY_USERNAME, user.getUser());
+        editor.commit();
+    }
+
+    public static String getUserId() {
+        return  settings.getString(KEY_USER_ID, "");
+    }
+
+    public static String getUsername() {
+        return settings.getString(KEY_USERNAME, "");
     }
 }
 

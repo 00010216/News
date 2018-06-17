@@ -1,29 +1,29 @@
-package com.example.kcruz.gamenews.database.models;
+package com.example.kcruz.gamenews.API;
 
 import java.util.List;
 
 public class User {
 
-    private int _id;
+    private String _id;
     private String user;
     private String password;
-    private List<String> favoriteNews;
+    private String[] favoriteNews;
 
     public User() {
     }
 
-    public User(int _id, String user, String password, List<String> favoriteNews) {
+    public User(String _id, String user, String password, String[] favoriteNews) {
         this._id = _id;
         this.user = user;
         this.password = password;
         this.favoriteNews = favoriteNews;
     }
 
-    public int get_id() {
+    public String get_id() {
         return _id;
     }
 
-    public void set_id(int _id) {
+    public void set_id(String _id) {
         this._id = _id;
     }
 
@@ -43,11 +43,11 @@ public class User {
         this.password = password;
     }
 
-    public List<String> getFavoriteNews() {
+    public String[] getFavoriteNews() {
         return favoriteNews;
     }
 
-    public void setFavoriteNews(List<String> favoriteNews) {
+    public void setFavoriteNews(String[] favoriteNews) {
         this.favoriteNews = favoriteNews;
     }
 }

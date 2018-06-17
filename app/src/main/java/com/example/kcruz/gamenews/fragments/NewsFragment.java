@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,13 +14,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.kcruz.gamenews.API.Favorites;
 import com.example.kcruz.gamenews.API.GamesAPIUtils;
+import com.example.kcruz.gamenews.API.User;
 import com.example.kcruz.gamenews.R;
+import com.example.kcruz.gamenews.activities.MainActivity;
 import com.example.kcruz.gamenews.adapters.NewsAdapter;
 import com.example.kcruz.gamenews.database.NewsRepository;
 import com.example.kcruz.gamenews.database.models.News;
 import com.example.kcruz.gamenews.database.viewmodels.NewsViewModel;
+import com.example.kcruz.gamenews.utils.GameNewsSharedPreferences;
 
 import java.util.List;
 
@@ -59,7 +66,7 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterCli
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         //inflamos vista que contiene el recycler
         View view = inflater.inflate(R.layout.fragment_news,container,false);
-
+        GameNewsSharedPreferences.initiate(getContext()); //activa las preferencias
         //asigna la vista del recyclerview al recycler
         newsView = (RecyclerView) view.findViewById(R.id.news_list);
         newsView.setHasFixedSize(true);
@@ -115,6 +122,7 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterCli
                 if (response.isSuccessful() && response.body() != null) {
                     Log.d(TAG, "onResponse: list size " + response.body().length);
                     newsViewModel.syncNewsApi(response.body());
+                    setUserDetail();
                     //newsAdapter.setNews(response.body());
                 }
 
@@ -123,6 +131,29 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterCli
             @Override
             public void onFailure(Call<News[]> call, Throwable t) {
                 Log.d("news", "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    public void setUserDetail(){
+        final Call<User> user = GamesAPIUtils.getApiInstanceWithAuthorization().userDetail();
+        user.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.d(TAG, "onResponse: " + response.code());
+                if (response.isSuccessful() && response.body() != null) {
+                    //Log.d(TAG, "onResponse: list size " + response.body().length);
+                    newsViewModel.updateFavorite(true, response.body().getFavoriteNews());
+                    GameNewsSharedPreferences.setUserDetail(response.body());
+                    ((MainActivity)getActivity()).setUsername(response.body().getUser());
+                    //newsAdapter.setNews(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("user", "onFailure: " + t.getMessage());
+
             }
         });
     }
@@ -140,6 +171,44 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterCli
     @Override
     public void onNewsClick(View v, int position) {
 
+    }
+
+    @Override
+    public void onFavoriteClick(String id, boolean value, ImageView tb) {
+            setFavorite(id,value,tb);
+    }
+
+    public void setFavorite(final String newsId, boolean value, final ImageView btn){
+        Call<Favorites> favoriteCall;
+        favoriteCall = value ?
+                GamesAPIUtils.getApiInstanceWithAuthorization().setFavorite(GameNewsSharedPreferences.getUserId(), newsId) :
+                GamesAPIUtils.getApiInstanceWithAuthorization().removeFavorite(GameNewsSharedPreferences.getUserId(), newsId);
+        favoriteCall.enqueue(new Callback<Favorites>() {
+            @Override
+            public void onResponse(Call<Favorites> call, Response<Favorites> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Favorites favorites = response.body();
+                    btn.setImageResource(favorites.isSuccess() ? R.drawable.ic_star_black_24dp : R.drawable.ic_star_border_black_24dp);
+                    if (favorites.isSuccess()) {
+                        newsViewModel.updateFavorite(true, newsId);
+                        Toast.makeText(NewsFragment.this.getContext(), "Added favorite", Toast.LENGTH_SHORT).show();
+                    } else if (!favorites.getMessage().isEmpty()) {
+                        newsViewModel.updateFavorite(false, newsId);
+                        Toast.makeText(NewsFragment.this.getContext(), "Removed favorite", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    btn.setImageResource(R.drawable.ic_star_border_black_24dp);
+                    Toast.makeText(NewsFragment.this.getContext(), "Could not save as favorite", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Favorites> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getMessage());
+                btn.setImageResource(R.drawable.ic_star_border_black_24dp);
+                Toast.makeText(NewsFragment.this.getContext(), "Could not save as favorite", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

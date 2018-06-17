@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.widget.TextView;
 
 import com.example.kcruz.gamenews.API.GamesAPIUtils;
 import com.example.kcruz.gamenews.R;
@@ -29,6 +30,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    private TextView navUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         toggle.syncState();
 
         navigationView = findViewById(R.id.navigationView);
+        navUsername = navigationView.getHeaderView(0).findViewById(R.id.txt_labor);
 
         if(savedInstanceState == null) {
             System.out.println("Entra la onsavedinstance");
@@ -167,5 +170,9 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setUsername(String name){
+        navUsername.setText(name);
     }
 }

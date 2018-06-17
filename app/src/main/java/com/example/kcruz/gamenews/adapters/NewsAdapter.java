@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.kcruz.gamenews.R;
 import com.example.kcruz.gamenews.database.models.News;
@@ -24,6 +25,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     public interface NewsAdapterClickListener{
         public void onNewsClick(View v, int position);
+        public void onFavoriteClick(String id, boolean value, ImageView tb);
     }
 
     private NewsAdapterClickListener mListener;
@@ -48,7 +50,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
     @Override
-    public void onBindViewHolder(NewsViewHolder holder, final int position) {
+    public void onBindViewHolder(final NewsViewHolder holder, final int position) {
         Picasso.with(context)
                 .load(news.get(position).getCoverImage())
                 .into(holder.imageNews);
@@ -62,7 +64,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         });
         holder.title.setText(news.get(position).getTitle());
         holder.description.setText(news.get(position).getDescription());
+        holder.btnFavorite.setImageResource(news.get(position).isFavorite() ? R.drawable.ic_star_black_24dp : R.drawable.ic_star_border_black_24dp);
+        holder.btnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onFavoriteClick(news.get(position).get_id(),
+                        !(news.get(position).isFavorite()),
+                        holder.btnFavorite);
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
