@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.kcruz.gamenews.API.GamesAPIUtils;
 import com.example.kcruz.gamenews.R;
 import com.example.kcruz.gamenews.fragments.NewsFragment;
+import com.example.kcruz.gamenews.fragments.TabFragment;
 import com.example.kcruz.gamenews.utils.GameNewsSharedPreferences;
 
 import retrofit2.Call;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         if(savedInstanceState == null) {
             System.out.println("Entra la onsavedinstance");
             NewsFragment news = new NewsFragment();
-            startFragment(R.string.news, news);
+            startFragment("News", news);
         }
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         }
     }
     //Crea el fragment con los tabs y el respectivo titulo del juego en el action bar
-    public void startFragment(int title, Fragment frag){
+    public void startFragment(String title, Fragment frag){
         setTitle(title);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -159,12 +160,20 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             case R.id.news:
                 System.out.println("Entro a fragmento");
                 NewsFragment news = new NewsFragment();
-                startFragment(R.string.news, news);
+                startFragment("News", news);
                 break;
             case R.id.logout:
                 GameNewsSharedPreferences.logOut();
                 startLogInActivity();
                 finish();
+                break;
+            default:
+                TabFragment tab = new TabFragment();
+                startFragment(item.getTitle().toString(),tab);
+                break;
+            case R.id.favorites:
+                NewsFragment fav = new NewsFragment();
+                startFragment("Favorites", fav);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);

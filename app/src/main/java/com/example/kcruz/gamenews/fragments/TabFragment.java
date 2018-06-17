@@ -27,7 +27,7 @@ public class TabFragment extends Fragment {
     private ViewPagerAdapter adapter;
 
     //declaracion del fragmentos que se ocuparan en los tabs
-    private AboutGameFragment aboutGameFragment;
+    private NewsFragment aboutGameFragment;
     private TopPlayersListFragment topPlayersListFragment;
     private ImagesFragment imagesFragment;
 
@@ -57,11 +57,11 @@ public class TabFragment extends Fragment {
         viewpager = view.findViewById(R.id.viewpager);
         adapter = new ViewPagerAdapter(getFragmentManager());
 
-        aboutGameFragment = new AboutGameFragment();
+        aboutGameFragment = new NewsFragment();
         topPlayersListFragment = new TopPlayersListFragment();
         imagesFragment = new ImagesFragment();
 
-        adapter.addFragment(aboutGameFragment, getResources().getString(R.string.about));
+        adapter.addFragment(aboutGameFragment,getResources().getString(R.string.news));
         adapter.addFragment(topPlayersListFragment, getResources().getString(R.string.top_players));
         adapter.addFragment(imagesFragment, getResources().getString(R.string.images) );
 
