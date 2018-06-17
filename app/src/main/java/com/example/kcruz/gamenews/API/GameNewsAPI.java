@@ -1,7 +1,7 @@
 package com.example.kcruz.gamenews.API;
 
-import com.example.kcruz.gamenews.models.News;
-import com.example.kcruz.gamenews.models.User;
+import com.example.kcruz.gamenews.database.models.News;
+import com.example.kcruz.gamenews.database.models.Player;
 
 import java.util.List;
 
@@ -22,6 +22,9 @@ public interface GameNewsAPI {
     Call<String[]> getGames();
 
     @GET("/news")
-    Call<List<News>> getNews();
+    Call<News[]> getNews();
+
+    @GET("/players")
+    Call<Player[]> getPlayers();
 
 }
