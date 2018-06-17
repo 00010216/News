@@ -1,4 +1,4 @@
-package com.example.kcruz.gamenews.models;
+package com.example.kcruz.gamenews.database.models;
 
 import java.util.List;
 

@@ -39,8 +39,12 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.4'
 
     //Room related libraries
-    implementation "android.arch.persistence.room:runtime:1.0.0-alpha9"
-    annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha9"
+    implementation "android.arch.persistence.room:runtime:$roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
+    implementation "android.arch.lifecycle:livedata:$archLifecycleVersion"
+    implementation "android.arch.lifecycle:extensions:$archLifecycleVersion"
+    implementation "android.arch.lifecycle:viewmodel:$archLifecycleVersion"
+
 
     //Picasso
     implementation "com.squareup.picasso:picasso:2.4.0"

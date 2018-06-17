@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.kcruz.gamenews.R;
-import com.example.kcruz.gamenews.models.Image;
+import com.example.kcruz.gamenews.database.models.Image;
 
 import java.util.List;
 

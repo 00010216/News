@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.kcruz.gamenews.R;
-import com.example.kcruz.gamenews.models.Player;
-import com.example.kcruz.gamenews.models.TopPlayer;
+import com.example.kcruz.gamenews.database.models.TopPlayer;
 
 import java.util.List;
 

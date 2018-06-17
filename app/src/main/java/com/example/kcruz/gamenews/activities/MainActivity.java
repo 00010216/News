@@ -20,7 +20,6 @@ import android.view.SubMenu;
 import com.example.kcruz.gamenews.API.GamesAPIUtils;
 import com.example.kcruz.gamenews.R;
 import com.example.kcruz.gamenews.fragments.NewsFragment;
-import com.example.kcruz.gamenews.fragments.TabFragment;
 import com.example.kcruz.gamenews.utils.GameNewsSharedPreferences;
 
 import retrofit2.Call;
@@ -29,9 +28,6 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout drawer;
-    private TabFragment frag;
-    private Fragment contentFragment;
-    private FragmentManager fragmentManager;
     private NavigationView navigationView;
 
     @Override

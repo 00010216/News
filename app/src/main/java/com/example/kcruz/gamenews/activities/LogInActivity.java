@@ -60,9 +60,6 @@ public class LogInActivity extends AppCompatActivity {
 
     public void verificationForLogIn(){
         initiateLogIn();
-        /*if(fieldsCheckUp()){
-            initiateLogIn(); //solo inicia el login si los datos estan bien ingresados
-        }*/
     }
 
     public void initiateLogIn(){
@@ -113,54 +110,4 @@ public class LogInActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*public int validateCarnet(String username){
-        String regex = "[0-9]{8}";
-        int year;
-        if(username.matches(regex)){
-            year = Integer.parseInt(username.substring(7,8));
-            if(((year >= 65 && year <= 99) || (year>=0 && year <=18 )) &&  (!(username.substring(1,6).equals("000000")))) {
-                return 1;
-            }else if(!((year >= 65 && year <= 99) || (year>=0 && year <=18 ))){
-               // Toast.makeText(this, R.string.wrong_last_two_digits, Toast.LENGTH_SHORT).show();
-                return 2;
-            }else if(username.substring(1,6).equals("000000")){
-                //Toast.makeText(this, R.string.cannot_be_zero, Toast.LENGTH_SHORT).show();
-                return 3;
-            }
-        }
-        //Toast.makeText(this, R.string.not_enough_digits, Toast.LENGTH_SHORT).show();
-        return 4;
-    }*/
-
-     /*public boolean fieldsCheckUp(){
-        String username = edtUsername.getText().toString().trim();
-        String password = edtPassword.getText().toString().trim();
-        int error = validateCarnet(username);
-        switch(error) {
-            case 1:
-                if (username.equals(password))
-                    return true;
-                else {
-                    Toast.makeText(this, "Password incorrect. Try again", Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-            case 2:
-                Toast.makeText(this, R.string.wrong_last_two_digits, Toast.LENGTH_SHORT).show();
-                return false;
-            case 3:
-                Toast.makeText(this, R.string.cannot_be_zero, Toast.LENGTH_SHORT).show();
-                return false;
-        }
-        /*if(validateCarnet(username)){
-            if(username.equals(password))
-                return true;
-            else {
-                Toast.makeText(this, "Password incorrect. Try again", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }
-        if(error == 4)
-            Toast.makeText(this, "Username or password is incorrect.Try again.", Toast.LENGTH_SHORT).show();
-            return false;
-    }*/
 }

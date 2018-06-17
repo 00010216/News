@@ -1,29 +1,36 @@
-package com.example.kcruz.gamenews.models;
+package com.example.kcruz.gamenews.database.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+@Entity
 public class Player {
-    private int _id;
+    @NonNull
+    @PrimaryKey
+    private String id;
+
     private String name;
-    private String biography;
-    private String avatar; //url de foto
     private String game;
 
-    public Player() {
+    public void setBiografia(String biografia) {
+        this.biografia = biografia;
     }
 
-    public Player(int _id, String name, String biography, String avatar, String game) {
-        this._id = _id;
-        this.name = name;
-        this.biography = biography;
-        this.avatar = avatar;
-        this.game = game;
+    private String biografia;
+    private String avatar;
+
+    public String getBiografia() {
+        return biografia;
     }
 
-    public int get_id() {
-        return _id;
+    @NonNull
+    public String getId() {
+        return id;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setId(@NonNull String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -34,12 +41,20 @@ public class Player {
         this.name = name;
     }
 
+    public String getGame() {
+        return game;
+    }
+
+    public void setGame(String game) {
+        this.game = game;
+    }
+
     public String getBiography() {
-        return biography;
+        return biografia;
     }
 
     public void setBiography(String biography) {
-        this.biography = biography;
+        this.biografia = biography;
     }
 
     public String getAvatar() {
@@ -48,13 +63,5 @@ public class Player {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    public String getGame() {
-        return game;
-    }
-
-    public void setGame(String game) {
-        this.game = game;
     }
 }

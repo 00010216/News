@@ -1,10 +1,8 @@
-package com.example.kcruz.gamenews.models;
+package com.example.kcruz.gamenews.database.models;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
-
-import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
@@ -19,17 +17,26 @@ public class News {
     private String game;
     private String coverImage;
     private String description;
-    private Date created_date;
-    private boolean favorite;
 
     @NonNull
-    public String getId() {
+    public String get_id() {
         return _id;
     }
 
-    public void setId(@NonNull String id) {
-        this._id = id;
+    public Date getCreated_date() {
+        return created_date;
     }
+
+    public void set_id(@NonNull String _id) {
+        this._id = _id;
+    }
+
+    public void setCreated_date(Date created_date) {
+        this.created_date = created_date;
+    }
+
+    private Date created_date;
+    private boolean favorite;
 
     public String getTitle() {
         return title == null ? "" : title.trim();

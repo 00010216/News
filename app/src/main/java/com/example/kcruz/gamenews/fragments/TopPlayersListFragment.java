@@ -1,8 +1,6 @@
 package com.example.kcruz.gamenews.fragments;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,8 +12,8 @@ import android.view.ViewGroup;
 
 import com.example.kcruz.gamenews.R;
 import com.example.kcruz.gamenews.adapters.TopPlayersListAdapter;
-import com.example.kcruz.gamenews.models.Player;
-import com.example.kcruz.gamenews.models.TopPlayer;
+import com.example.kcruz.gamenews.database.models.Player;
+import com.example.kcruz.gamenews.database.models.TopPlayer;
 
 import java.util.ArrayList;
 import java.util.List;

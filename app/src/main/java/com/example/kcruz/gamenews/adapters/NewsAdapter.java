@@ -3,6 +3,7 @@ package com.example.kcruz.gamenews.adapters;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.kcruz.gamenews.R;
-import com.example.kcruz.gamenews.models.Image;
-import com.example.kcruz.gamenews.models.News;
+import com.example.kcruz.gamenews.database.models.News;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -24,11 +22,23 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     List<News> news; //declarando lista que contendra todos los topplayers
     Resources resources;
 
-    public NewsAdapter(Context context, List<News> news, Resources resources) {
-        this.context = context;
-        this.news = news;
-        this.resources = resources;
+    public interface NewsAdapterClickListener{
+        public void onNewsClick(View v, int position);
     }
+
+    private NewsAdapterClickListener mListener;
+
+    public NewsAdapter(Context context, Resources resources, NewsAdapterClickListener mListener) {
+        this.context = context;
+        this.resources = resources;
+        this.mListener = mListener;
+    }
+
+    public void setNews(List<News> news) {
+        this.news = news;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -38,26 +48,34 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
     @Override
-    public void onBindViewHolder(NewsViewHolder holder, int position) {
+    public void onBindViewHolder(NewsViewHolder holder, final int position) {
         Picasso.with(context)
                 .load(news.get(position).getCoverImage())
                 .into(holder.imageNews);
         //holder.imageNews.setImageResource(news.get(position).getCoverImage());
         //fixText(holder,position);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onNewsClick(v, position);
+            }
+        });
         holder.title.setText(news.get(position).getTitle());
         holder.description.setText(news.get(position).getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return news.size();
+        return news == null ? 0 : news.size();
     }
 
     public class NewsViewHolder extends RecyclerView.ViewHolder {
+        CardView cardView;
         ImageView imageNews, btnFavorite;
         TextView title, description;
         public NewsViewHolder(View itemView) {
             super(itemView);
+            cardView = itemView.findViewById(R.id.card_view);
             imageNews = itemView.findViewById(R.id.img_news);
             title = itemView.findViewById(R.id.news_title);
             description = itemView.findViewById(R.id.news_description);
@@ -68,10 +86,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     public void fixText( NewsViewHolder holder, int position){
         //Se verifica el largo del titulo y apartir de ese valor segun la orientacion del dispositivo se corta la cadena de descripcion o el titulo
         String text = news.get(position).getTitle();
-        String fixedDescription = news.get(position).getDescription().substring(0,86) + "..."; //se corta descripcion  a solo dos lineas
+        String fixedDescription = news.get(position).getDescription().substring(0,89) + "..."; //se corta descripcion  a solo dos lineas
         int size = text.length();
 
-        if (resources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (resources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE || resources.getConfiguration().isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_LARGE)) {
             holder.title.setText(news.get(position).getTitle());
             holder.description.setText(news.get(position).getDescription());
         }else {
